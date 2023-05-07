@@ -5,7 +5,7 @@ public class Planet{
     public double yyVel;
     public double mass;
     public String imgFileName;
-    private static double g = 6.67e-11;
+
 
     /* Construct a planet */
     public Planet(double xP, double yP, double xV, double yV, double m, String img){
@@ -35,6 +35,7 @@ public class Planet{
 
     /* Calculate the force on one planet */
     public double calcForceExertedBy(Planet p){
+        double g = 6.67e-11;
         double f = g * this.mass * p.mass / (this.calcDistance(p) * this.calcDistance(p));
         return f;
     }
