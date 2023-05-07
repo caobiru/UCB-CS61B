@@ -19,7 +19,7 @@ public class NBody {
             double xxVel = in.readDouble();
             double yyVel = in.readDouble();
             double mass = in.readDouble();
-            String imgFileName = "images/" + in.readString();
+            String imgFileName = in.readString();
             Planet p = new Planet(xxPos, yyPos, xxVel, yyVel, mass, imgFileName);
             planets[i] = p;
         }
@@ -30,8 +30,10 @@ public class NBody {
         double T = Double.parseDouble(args[0]);
         double dt = Double.parseDouble(args[1]);
         String filename = args[2];
+
         double radiusDraw = readRadius(filename);
         Planet[] planetsDraw = readPlanets(filename);
+
         int planetNumber = planetsDraw.length;
 
         /* Set the scale of the window */
