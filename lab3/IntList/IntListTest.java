@@ -66,8 +66,9 @@ public class IntListTest {
         assertEquals(IntList.of(1, 2, 3), A);
     }
 
-    @Test(timeout = 1000)
-    public static IntList reverse() {
+    @Test
+    /* Solution from https://sp18.datastructur.es/materials/discussion/disc03sol.pdf */
+    public void testReverse() {
         /* Test the function returns a recursive list */
         IntList L = IntList.of(1, 2, 3);
         IntList exp = IntList.of(3, 2, 1);
@@ -78,8 +79,7 @@ public class IntListTest {
         assertNotEquals(L, L2);
 
         /* Test the function handles a null input properly */
-        IntList L3 = null;
-        assertEquals(IntList.reverse(L3), null);
+        assertEquals(IntList.reverse(null), null);
     }
 
     /** If you're running this from the command line, you'll need
