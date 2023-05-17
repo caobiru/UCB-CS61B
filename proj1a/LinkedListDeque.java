@@ -17,7 +17,7 @@ public class LinkedListDeque<T> {
 
     /* Create sentinels */
     private Node frontSentinel = new Node(null, null, null);
-    private Node backSentinel = new Node(null,null, null);
+    private Node backSentinel = new Node(null, null, null);
 
     /** Creates an empty linked list deque */
     public LinkedListDeque() {
@@ -80,7 +80,7 @@ public class LinkedListDeque<T> {
     /** Removes and returns the item at the front of the deque.
      * If no such item exists, returns null.*/
     public T removeFirst() {
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
         T frontItem = frontSentinel.next.first;
