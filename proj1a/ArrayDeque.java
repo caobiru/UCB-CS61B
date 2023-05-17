@@ -14,18 +14,17 @@ public class ArrayDeque<T> {
 
     /** Add an item to the front of the list */
     public void addFirst(T item) {
-        if (size == items.length) {
+        if (size >= items.length) {
             resize(2);
         }
 
         size++;
         items[nextFirst] = item;
 
-        if (nextFirst == 0) {
+        if (nextFirst > 0) {
+            nextFirst--;;
+        } else {
             nextFirst = items.length - 1;
-        }
-        else {
-            nextFirst--;
         }
     }
 
@@ -38,16 +37,15 @@ public class ArrayDeque<T> {
         size++;
         items[nextLast] = item;
 
-        if (nextLast == items.length - 1) {
+        if (nextLast < items.length - 1) {
             nextLast = 0;
-        }
-        else {
+        } else {
             nextLast++;
         }
     }
 
     /** Returns true if deque is empty, false otherwise.*/
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         if (size == 0) {
             return true;
         }
@@ -63,10 +61,9 @@ public class ArrayDeque<T> {
     public void printDeque() {
         if (isEmpty()) {
             return;
-        }
-        else {
+        } else {
             for (int i = nextFirst + 1; i != nextLast; i++) {
-                if(i >= items.length) {
+                if (i >= items.length) {
                     i = 0;
                 }
                 System.out.print(items[i]);
@@ -90,7 +87,7 @@ public class ArrayDeque<T> {
         size--;
 
         /* resize the array if it is too empty*/
-        if(size < items.length / 4 && items.length > 8) {
+        if (size < items.length / 4 && items.length > 8) {
             resize(0.5);
         }
         return firstItem;
@@ -112,7 +109,7 @@ public class ArrayDeque<T> {
         size--;
 
         /* resize the array if it is too empty*/
-        if(size < items.length / 4 && items.length > 8) {
+        if (size < items.length / 4 && items.length > 8) {
             resize(0.5);
         }
 
@@ -135,7 +132,7 @@ public class ArrayDeque<T> {
     /** Resize the array */
     private void resize(double refactor) {
         T[] newArray = (T[]) new Object[(int) (size * refactor)];
-        for (int i = nextFirst + 1, j = 0 ; j < size; i++, j++) {
+        for (int i = nextFirst + 1, j = 0; j < size; i++, j++) {
             if (i >= items.length) {
                 i = 0;
             }
