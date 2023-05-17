@@ -15,14 +15,14 @@ public class ArrayDeque<T> {
     /** Add an item to the front of the list */
     public void addFirst(T item) {
         if (size >= items.length) {
-            resize(2);
+            resize(items.length * 2);
         }
 
         size++;
         items[nextFirst] = item;
 
         if (nextFirst > 0) {
-            nextFirst--;;
+            nextFirst--;
         } else {
             nextFirst = items.length - 1;
         }
@@ -30,17 +30,17 @@ public class ArrayDeque<T> {
 
     /** Add an item to the back of the list */
     public void addLast(T item) {
-        if (size == items.length) {
-            resize(2);
+        if (size >= items.length) {
+            resize(items.length * 2);
         }
 
         size++;
         items[nextLast] = item;
 
         if (nextLast < items.length - 1) {
-            nextLast = 0;
-        } else {
             nextLast++;
+        } else {
+            nextLast = 0;
         }
     }
 
@@ -88,7 +88,7 @@ public class ArrayDeque<T> {
 
         /* resize the array if it is too empty*/
         if (size < items.length / 4 && items.length > 8) {
-            resize(0.5);
+            resize(items.length / 2);
         }
         return firstItem;
     }
@@ -101,7 +101,7 @@ public class ArrayDeque<T> {
         }
 
         if (--nextLast < 0) {
-            nextFirst = items.length - 1;
+            nextLast = items.length - 1;
         }
 
         T lastItem = items[nextLast];
@@ -110,7 +110,7 @@ public class ArrayDeque<T> {
 
         /* resize the array if it is too empty*/
         if (size < items.length / 4 && items.length > 8) {
-            resize(0.5);
+            resize(items.length / 2);
         }
 
         return lastItem;
@@ -124,14 +124,9 @@ public class ArrayDeque<T> {
         return items[(nextFirst + index + 1) % items.length];
     }
 
-    /** Gets the item at the given index with recursion */
-    private T getRecursive(int index) {
-        return null;
-    }
-
     /** Resize the array */
-    private void resize(double refactor) {
-        T[] newArray = (T[]) new Object[(int) (size * refactor)];
+    private void resize(int capacity) {
+        T[] newArray = (T[]) new Object[capacity];
         for (int i = nextFirst + 1, j = 0; j < size; i++, j++) {
             if (i >= items.length) {
                 i = 0;
