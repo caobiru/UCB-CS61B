@@ -1,12 +1,12 @@
 public class LinkedListDeque<T> {
 
     /** Node class */
-    private class Node{
+    private class Node {
         private T first;
         private Node prev;
         private Node next;
 
-        private Node(Node p, T item, Node n){
+        private Node(Node p, T item, Node n) {
             first = item;
             prev = p;
             next = n;
@@ -20,80 +20,92 @@ public class LinkedListDeque<T> {
     private Node backSentinel = new Node(null,null, null);
 
     /** Creates an empty linked list deque */
-    public LinkedListDeque(){
+    public LinkedListDeque() {
         size = 0;
     }
 
     /** Add an item to the front of the list */
-    public void addFirst(T item){
-        Node firstItem = new Node (null, item, null);
-        firstItem.next = frontSentinel.next;
-        frontSentinel.next = firstItem.prev;
-        size += 1;
+    public void addFirst(T item) {
+        if (frontSentinel.next == null) {
+            Node first = new Node(frontSentinel, item, backSentinel);
+            frontSentinel.next = first;
+            backSentinel.prev = first;
+        } else {
+            Node first = new Node(frontSentinel, item, frontSentinel.next);
+            frontSentinel.next = first;
+            frontSentinel.next.next.prev = first;
+        }
+        size++;
     }
 
     /** Add an item to the back of the list */
-    public void addLast(T item){
-        Node lastItem = new Node (null, item, null);
-        lastItem.prev = backSentinel.prev;
-        backSentinel.prev = lastItem.next;
-        size += 1;
+    public void addLast(T item) {
+        if (backSentinel.prev == null) {
+            Node last = new Node(frontSentinel, item, backSentinel);
+            backSentinel.prev = last;
+            frontSentinel.next = last;
+        } else {
+            Node last = new Node(backSentinel.prev, item, backSentinel);
+            backSentinel.prev = last;
+            backSentinel.prev.prev.next = last;
+        }
+        size++;
     }
 
     /** Returns true if deque is empty, false otherwise.*/
-    public boolean isEmpty(){
-        if (size == 0){
+    public boolean isEmpty() {
+        if (size == 0) {
             return true;
         }
-        else{
-            return false;
-        }
+        return false;
     }
 
-    /**Returns the number of items in the deque.*/
-    public int size(){
+    /** Returns the number of items in the deque.*/
+    public int size() {
         return size;
     }
 
     /** Prints the items in the deque from first to last, separated by a space. */
-    public void printDeque(){
-        if (size == 0){
+    public void printDeque() {
+        if (size == 0) {
             return;
         }
         Node p = frontSentinel.next;
         for (int i = 0; i < size; i++) {
-            StdOut.printf("%d ", p.first);
+            System.out.print(p.first);
             p = p.next;
         }
     }
 
-    /** Removes and returns the item at the front of the deque. If no such item exists, returns null.*/
-    public T removeFirst(){
+    /** Removes and returns the item at the front of the deque.
+     * If no such item exists, returns null.*/
+    public T removeFirst() {
         if (size == 0){
             return null;
         }
         T frontItem = frontSentinel.next.first;
         frontSentinel.next = frontSentinel.next.next;
         frontSentinel.next.prev = frontSentinel;
-        size --;
+        size--;
         return frontItem;
     }
 
-    /** Removes and returns the item at the back of the deque. If no such item exists, returns null.*/
-    public T removeLast(){
-        if (size == 0){
+    /** Removes and returns the item at the back of the deque.
+     * If no such item exists, returns null.*/
+    public T removeLast() {
+        if (size == 0) {
             return null;
         }
         T backItem = backSentinel.prev.first;
         backSentinel.prev = backSentinel.prev.prev;
         backSentinel.prev.next = backSentinel;
-        size --;
+        size--;
         return backItem;
     }
 
-    /**Gets the item at the given index. If no such item exists, returns null. Must not alter the deque!*/
-    public T get(int index){
-        if (index < 0 || size == 0 || index >= size){
+    /** Gets the item at the given index. If no such item exists, returns null.*/
+    public T get(int index) {
+        if (index < 0 || size == 0 || index >= size) {
             return null;
         }
 
@@ -104,16 +116,16 @@ public class LinkedListDeque<T> {
         return p.first;
     }
 
-    /**Gets the item at the given index with recursion */
-    public T getRecursive(int index){
-        if (index < 0 || size == 0 || index >= size){
+    /** Gets the item at the given index with recursion */
+    public T getRecursive(int index) {
+        if (index < 0 || size == 0 || index >= size) {
             return null;
         }
-        return getRecursiveHelper(index, frontSentinel.next) ;
+        return getRecursiveHelper(index, frontSentinel.next);
     }
 
-    public T getRecursiveHelper(int index, Node N){
-        if (index == 0){
+    private T getRecursiveHelper(int index, Node N) {
+        if (index == 0) {
             return N.first;
         }
         return getRecursiveHelper(index - 1, N.next);
