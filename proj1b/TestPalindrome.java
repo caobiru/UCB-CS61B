@@ -21,4 +21,12 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome("A"));
         assertFalse(palindrome.isPalindrome("Aa"));
     }
+
+    @Test
+    public void testIsPalindromeOne() {
+        OffByOne cc = new OffByOne();
+        assertTrue(palindrome.isPalindrome("flake", cc));
+        assertTrue(palindrome.isPalindrome("A", cc));
+        assertFalse(palindrome.isPalindrome("Aa", cc));
+    }
 }

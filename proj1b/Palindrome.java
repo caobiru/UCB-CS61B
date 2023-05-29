@@ -25,4 +25,20 @@ public class Palindrome {
 
         return isPalindromeHelper(D);
     }
+
+    /** return true if the word is a palindrome according to the character comparison test provided by
+     * the CharacterComparator passed in as argument cc*/
+    public boolean isPalindrome(String word, CharacterComparator cc) {
+        Deque<Character> D = wordToDeque(word);
+
+        for (int i = 0; i < word.length() / 2; i++) {
+            if (D.size() == 0 || D.size() == 1){
+                return true;
+            }
+            else if (!cc.equalChars(D.removeFirst(), D.removeLast())){
+                return false;
+            }
+        }
+        return true;
+    }
 }
