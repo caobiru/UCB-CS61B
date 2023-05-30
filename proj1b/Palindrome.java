@@ -15,11 +15,11 @@ public class Palindrome {
         return isPalindromeHelper(D);
     }
 
-    private boolean isPalindromeHelper(Deque<Character> D){
+    private boolean isPalindromeHelper(Deque<Character> D) {
         if (D.size() == 0 || D.size() == 1) {
             return true;
         }
-        else if (D.removeFirst() != D.removeLast()){
+        else if (D.removeFirst() != D.removeLast()) {
             return false;
         }
 
@@ -32,10 +32,10 @@ public class Palindrome {
         Deque<Character> D = wordToDeque(word);
 
         for (int i = 0; i < word.length() / 2; i++) {
-            if (D.size() == 0 || D.size() == 1){
+            if (D.size() == 0 || D.size() == 1) {
                 return true;
             }
-            else if (!cc.equalChars(D.removeFirst(), D.removeLast())){
+            else if (!cc.equalChars(D.removeFirst(), D.removeLast())) {
                 return false;
             }
         }
